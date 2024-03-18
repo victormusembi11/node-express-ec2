@@ -18,3 +18,22 @@ jobs:
 
       - name: Publish the Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/node-express-ec2:latest
+
+  deploy:
+    runs-on: [node-express-ec2]
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Pull the Docker image
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/node-express-ec2:latest
+
+      - name: Delete the existing Docker container
+        run: docker rm -f node-express-ec2 || true
+
+      - name: Run the Docker container
+        run: docker-compose up --build -d
