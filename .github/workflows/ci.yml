@@ -20,7 +20,7 @@ jobs:
         run: docker push ${{ secrets.DOCKER_USERNAME }}/node-express-ec2:latest
 
   deploy:
-    runs-on: [node-express-ec2]
+    runs-on: [node-expression-ec2]
     needs: build
     steps:
       - name: Checkout
