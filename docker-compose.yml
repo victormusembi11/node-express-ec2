@@ -2,9 +2,7 @@ version: "3.8"
 
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: vmw11/node-express-ec2:latest
     ports:
       - "5000:5000"
     env_file:
